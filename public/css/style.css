@@ -3,7 +3,7 @@ body {
     background-image: linear-gradient(45deg, #1c144f, #392f78);       
 }
 
-div {
+.form, #welcome {
     background-color: rgba(0, 0, 0, 0.7);/*petro transparente*/
     position: absolute;
     top: 50%;
