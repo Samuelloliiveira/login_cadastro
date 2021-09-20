@@ -29,15 +29,6 @@ const LoginForm = {
   email: document.getElementById('email'),
   password: document.getElementById('password'),
 
-  getDados() {
-    const dataStorage = Storage.get()
-
-    //varendo o array de objetos e me retornando os email e senha
-    for(let users of dataStorage){
-      return users.email, users.password
-    }
-  },
-
   ExistsUsers() {
     //VERIFICAR SE USUÁRIO JÁ EXISTE NO BANCO E SE SIM ABRIR - SE NÃO ALERTA
   }
@@ -60,6 +51,14 @@ const registrationForm = {
       password: registrationForm.password.value,
       confirmPassword: registrationForm.confirmPassword.value,
     }
+  },
+
+  checkEmailExists(email) {
+
+    const dataStorage = Storage.get()
+
+    
+
   },
 
   ValidData() {
@@ -94,12 +93,7 @@ const registrationForm = {
       password
     } = registrationForm.getValues()
 
-
-    if(email === LoginForm.getDados()) {
-      alert('Email já existe')
-    }else {
-      return {name, lastName, email, password}
-    }
+    return {name, lastName, email, password}
   },
 
   submit(event) {//submeter o formulário=
@@ -107,12 +101,11 @@ const registrationForm = {
 
     const dataUsers = registrationForm.returnsvalidData()
 
-    console.log(registrationForm.getDados)
-
     try {
 
       registrationForm.ValidData()
-      registrations.add(dataUsers)
+      registrationForm.checkEmailExists()
+      // registrations.add(dataUsers)
 
     } catch (error) {
       alert(error.message)
@@ -134,3 +127,5 @@ app.init()
 //FAZER O LOGIM
 //ADICIONAR SEMANTICA
 //NÃO CADASTRAR O MESMO EMAIL
+
+registrationForm.checkEmailExists()
