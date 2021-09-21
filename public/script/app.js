@@ -53,7 +53,7 @@ const registrationForm = {
     }
   },
 
-  CheckEmailExists(email) {
+  checkEmailExists(email) {
 
     const dataStorage = Storage.get()
 
@@ -62,10 +62,18 @@ const registrationForm = {
         throw new Error('Email já cadastrado!')
       }
     }
-
   },
 
-  ValidData() {
+  validatePassword(password) {
+    
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/
+
+    if (passwordRegex.test(String(password)) == false) {
+      throw new Error('A senha deve atender aos requisitos!')
+    }
+  },
+
+  validateFields() {
       
     const {
       name, 
@@ -104,13 +112,14 @@ const registrationForm = {
     event.preventDefault()//Não passa valores pela url
 
     const dataUsers = registrationForm.returnsvalidData()
+    const email = registrationForm.getValues().email
+    const password = registrationForm.getValues().password
 
     try {
 
-      email = registrationForm.getValues().email
-
-      registrationForm.ValidData()
-      registrationForm.CheckEmailExists(email)
+      registrationForm.validateFields()
+      registrationForm.checkEmailExists(email)
+      registrationForm.validatePassword(password)
       registrations.add(dataUsers)
 
     } catch (error) {
@@ -132,4 +141,3 @@ app.init()
 //ABRIR TELA DE INICIO E COLOCAR O NOME DA PESSOA
 //FAZER O LOGIM
 //ADICIONAR SEMANTICA
-//NÃO CADASTRAR O MESMO EMAIL
