@@ -53,11 +53,15 @@ const registrationForm = {
     }
   },
 
-  checkEmailExists(email) {
+  CheckEmailExists(email) {
 
     const dataStorage = Storage.get()
 
-    
+    for(users of dataStorage) {
+      if (email === users.email) {
+        throw new Error('Email já cadastrado!')
+      }
+    }
 
   },
 
@@ -103,9 +107,11 @@ const registrationForm = {
 
     try {
 
+      email = registrationForm.getValues().email
+
       registrationForm.ValidData()
-      registrationForm.checkEmailExists()
-      // registrations.add(dataUsers)
+      registrationForm.CheckEmailExists(email)
+      registrations.add(dataUsers)
 
     } catch (error) {
       alert(error.message)
@@ -127,5 +133,3 @@ app.init()
 //FAZER O LOGIM
 //ADICIONAR SEMANTICA
 //NÃO CADASTRAR O MESMO EMAIL
-
-registrationForm.checkEmailExists()
