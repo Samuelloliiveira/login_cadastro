@@ -24,16 +24,67 @@ const registrations = {
 
 }
 
-const LoginForm = {
+const loginForm = {
 
   email: document.getElementById('email'),
   password: document.getElementById('password'),
 
-  ExistsUsers() {
-    //VERIFICAR SE USUÁRIO JÁ EXISTE NO BANCO E SE SIM ABRIR - SE NÃO ALERTA
+  existsUsers(emailLogin, passwordLogin) {
+ 
+    const dataStorage = Storage.get()
+
+    for (let index = 0; index < dataStorage.length; index++) {
+
+      
+
+      // if (
+      //   dataStorage[index].email == emailLogin &
+      //   dataStorage[index].password == passwordLogin) {
+      //     console.log("Cheguei aqui")
+      //     
+      // } else {
+      //   console.log('Não foi dessa vez')
+      // }
+    }
+
+    // console.log(dataStorage)
+
+    // window.location.replace('/paginaInicial.html')
+
+   
+  },
+
+  login(event) {
+    event.preventDefault()//Não passa valores pela url
+
+    const emailLogin = loginForm.email.value
+    const passwordLogin = loginForm.password.value
+
+    try {
+      
+      loginForm.existsUsers(emailLogin,passwordLogin)
+
+    } catch (error) {
+      alert(error.message)
+    }
+
   }
 
 }
+
+// const directPage = {
+//   userPage() {
+// 
+//     //Direciona página
+//     window.location.replace('/paginaInicial.html')
+// 
+//     //Pega o p da página inicial
+//     const user = document.querySelector('.userPage p')
+// 
+// 
+//     
+//   },
+// }
 
 const registrationForm = {
 
@@ -108,12 +159,13 @@ const registrationForm = {
     return {name, lastName, email, password}
   },
 
-  submit(event) {//submeter o formulário=
+  submit(event) {//submeter o formulário
     event.preventDefault()//Não passa valores pela url
 
     const dataUsers = registrationForm.returnsvalidData()
-    const email = registrationForm.getValues().email
-    const password = registrationForm.getValues().password
+
+    const email = registrationForm.returnsvalidData().email
+    const password = registrationForm.returnsvalidData().password
 
     try {
 
@@ -121,6 +173,7 @@ const registrationForm = {
       registrationForm.checkEmailExists(email)
       registrationForm.validatePassword(password)
       registrations.add(dataUsers)
+      // directPage.userPage()
 
     } catch (error) {
       alert(error.message)
