@@ -34,18 +34,18 @@ const loginForm = {
     const dataStorage = Storage.get()
 
     for(users of dataStorage) {
-      
+
       if (
-        emailLogin === String(users.email) &
-        passwordLogin === String(users.password)
+        emailLogin === users.email &
+        passwordLogin === users.password
       ) {
 
         window.location.replace('/paginaInicial.html')
-
+      
       }else {
-        alert('Error')
+        alert('Usuário não cadastrado')
       }
-    
+
     }
    
   },
@@ -68,19 +68,14 @@ const loginForm = {
 
 }
 
-// const directPage = {
-//   userPage() {
-// 
-//     //Direciona página
-//     window.location.replace('/paginaInicial.html')
-// 
-//     //Pega o p da página inicial
-//     const user = document.querySelector('.userPage p')
-// 
-// 
-//     
-//   },
-// }
+const directPage = {
+  userPage(name) {
+
+    //Direciona para a página de usuário
+    window.location.replace(`/paginaInicial.html?name=${name}`)
+
+  },
+}
 
 const registrationForm = {
 
@@ -162,6 +157,7 @@ const registrationForm = {
 
     const email = registrationForm.returnsvalidData().email
     const password = registrationForm.returnsvalidData().password
+    const name = registrationForm.returnsvalidData().name
 
     try {
 
@@ -169,7 +165,7 @@ const registrationForm = {
       registrationForm.checkEmailExists(email)
       registrationForm.validatePassword(password)
       registrations.add(dataUsers)
-      // directPage.userPage()
+      directPage.userPage(name)
 
     } catch (error) {
       alert(error.message)
@@ -186,6 +182,3 @@ const app = {
 
 //o local storage vai começar vazio
 app.init()
-
-//ABRIR TELA DE INICIO E COLOCAR O NOME DA PESSOA
-//FAZER O LOGIM
