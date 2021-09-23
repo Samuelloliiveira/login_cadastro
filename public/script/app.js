@@ -33,24 +33,20 @@ const loginForm = {
  
     const dataStorage = Storage.get()
 
-    for (let index = 0; index < dataStorage.length; index++) {
-
+    for(users of dataStorage) {
       
+      if (
+        emailLogin === String(users.email) &
+        passwordLogin === String(users.password)
+      ) {
 
-      // if (
-      //   dataStorage[index].email == emailLogin &
-      //   dataStorage[index].password == passwordLogin) {
-      //     console.log("Cheguei aqui")
-      //     
-      // } else {
-      //   console.log('Não foi dessa vez')
-      // }
+        window.location.replace('/paginaInicial.html')
+
+      }else {
+        alert('Error')
+      }
+    
     }
-
-    // console.log(dataStorage)
-
-    // window.location.replace('/paginaInicial.html')
-
    
   },
 
