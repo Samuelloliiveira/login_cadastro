@@ -33,6 +33,7 @@ const loginForm = {
  
     const dataStorage = Storage.get()
 
+    arrayName = []
     arrayEmail = []
     arrayPassword = []
     arrayData = []
@@ -41,19 +42,21 @@ const loginForm = {
 
       arrayEmail[index] = dataStorage[index].email
       arrayPassword[index] = dataStorage[index].password
+      arrayName[index] = dataStorage[index].name
 
-      arrayData[index] = [arrayEmail[index], arrayPassword[index]]
+      arrayData[index] = [arrayName[index], arrayEmail[index], arrayPassword[index]]
     
       const arrayIndex = arrayData[index]
 
       console.table(arrayIndex)
 
-      const email = arrayIndex[0].includes(loginForm.email.value)
-      const password = arrayIndex[1].includes(loginForm.password.value)
+      const email = arrayIndex[1].includes(loginForm.email.value)
+      const password = arrayIndex[2].includes(loginForm.password.value)
 
       if (email == true & password == true){
 
-        directPage.userPage()
+        //passando o nome do usuário que realizou login
+        directPage.userPage(arrayIndex[0])
       
       }else if(email == true & password == false){
 
@@ -251,6 +254,5 @@ const app = {
 app.init()
 
 
+
 //NÃO PERMITIR NAVEGAR PELA URL
-//PASSAR O NOME DO USUÁRIO AO FAZER LOGIM
-//NÃO PERMITIR USAR SENHA DE OUTRO USUÁRIO
