@@ -43,11 +43,21 @@ const loginForm = {
         window.location.replace('/paginaInicial.html')
       
       }else {
-        alert('Usuário não cadastrado')
+        throw new Error('Usuário não cadastrado!')
       }
 
     }
    
+  },
+
+  ValidateFillLogin() {
+
+    if (
+      loginForm.email.value === '' ||
+      loginForm.password.value === ''
+    ){
+      throw new Error('Preencha todos os campos')
+    }
   },
 
   login(event) {
@@ -58,10 +68,16 @@ const loginForm = {
 
     try {
       
+      loginForm.ValidateFillLogin()
       loginForm.existsUsers(emailLogin,passwordLogin)
 
     } catch (error) {
-      alert(error.message)
+
+      const message = String(error)
+
+      const newError = message.replace('Error:', '')
+
+      registrationForm.alert(newError)
     }
 
   }
@@ -131,7 +147,7 @@ const registrationForm = {
       email === '' ||
       password === '' ||
       confirmPassword === '') {
-        throw new Error('Preencha todos os campos')
+        throw new Error('Preencha todos os campos!')
     }if(confirmPassword != password) {
       throw new Error('As senhas não coincidem!')
     }
@@ -150,6 +166,36 @@ const registrationForm = {
     return {name, lastName, email, password}
   },
 
+  removeAlert() {
+
+    const divAlert = document.querySelector('.alert')
+
+    /*para cara elemento error que tiver dentro de alert
+    ele vai remover*/
+    for (error of divAlert.children) {
+        error.remove();
+    }
+  },
+
+  alert(error) {
+    const divAlert = document.querySelector('.alert')
+    const existsP = document.querySelector('.alert p')
+    const p = document.createElement('p')
+
+    //recebendo erro
+    p.innerHTML = error
+
+    if (existsP == null) {
+      divAlert.appendChild(p)
+    }
+    
+    //Chama a função de remover alerta depois de um tempo
+    setTimeout(function () {
+      registrationForm.removeAlert()
+    }, 1100)
+
+  },
+  
   submit(event) {//submeter o formulário
     event.preventDefault()//Não passa valores pela url
 
@@ -168,7 +214,12 @@ const registrationForm = {
       directPage.userPage(name)
 
     } catch (error) {
-      alert(error.message)
+
+      const message = String(error)
+
+      const newError = message.replace('Error:', '')
+
+      registrationForm.alert(newError)
     }
 
   }

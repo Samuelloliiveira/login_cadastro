@@ -3,6 +3,10 @@ body {
     background-image: linear-gradient(to right, #B537F2 , #8A2BE2, #32B9FC );       
 }
 
+h1 {
+    margin: 0;
+}
+
 label {
     position: absolute;
     width: 1px;
@@ -13,6 +17,12 @@ label {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+}
+
+.alert p {
+    margin: 0;
+    color: red;
+    white-space: normal;
 }
 
 .form, .welcome {
@@ -42,6 +52,8 @@ label {
 
 .welcome p {
     color: yellow;
+    font-size: 2rem;
+    margin-top: 0;
 }
 
 input {
@@ -50,7 +62,7 @@ input {
     outline: none;
     font-size: 15px;
     border-radius: 0.3rem;
-    width: 13rem;
+    width: 17rem;
 }
 
 button {
