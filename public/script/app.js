@@ -29,19 +29,24 @@ const loginForm = {
   email: document.getElementById('email'),
   password: document.getElementById('password'),
 
-  existsUsers(emailLogin, passwordLogin) {
+  existsUsers() {
  
     const dataStorage = Storage.get()
 
     for(users of dataStorage) {
 
       if (
-        emailLogin === users.email &
-        passwordLogin === users.password
-      ) {
+        loginForm.email.value === users.email &
+        loginForm.password.value === users.password
+      ){
 
-        window.location.replace('/paginaInicial.html')
+        directPage.userPage(users.name)
       
+      }else if(
+        loginForm.email.value === users.email &
+        loginForm.password.value != users.password
+      ){
+        throw new Error('A senha esta incorreta!')
       }else {
         throw new Error('Usuário não cadastrado!')
       }
@@ -63,13 +68,10 @@ const loginForm = {
   login(event) {
     event.preventDefault()//Não passa valores pela url
 
-    const emailLogin = loginForm.email.value
-    const passwordLogin = loginForm.password.value
-
     try {
       
       loginForm.ValidateFillLogin()
-      loginForm.existsUsers(emailLogin,passwordLogin)
+      loginForm.existsUsers()
 
     } catch (error) {
 
