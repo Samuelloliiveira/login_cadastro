@@ -39,14 +39,11 @@ const loginForm = {
 
     for (let index = 0; index < dataStorage.length; index++) {
 
-      // console.table(dataStorage[index])
-
       arrayEmail[index] = dataStorage[index].email
       arrayPassword[index] = dataStorage[index].password
 
       arrayData[index] = [arrayEmail[index], arrayPassword[index]]
     
-
       const arrayIndex = arrayData[index]
 
       console.table(arrayIndex)
@@ -59,11 +56,15 @@ const loginForm = {
         directPage.userPage()
       
       }else if(email == true & password == false){
+
         throw new Error('A senha esta incorreta!')
+
       }
-      // else {
-      //   throw new Error('Usuário não cadastrado!')
-      // }
+//       if (email == false & password == false) {
+// 
+        // throw new Error('Usuário não cadastrado!')
+//         
+//       }
 
     }
   },
