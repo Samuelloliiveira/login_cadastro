@@ -35,35 +35,37 @@ const loginForm = {
 
     arrayEmail = []
     arrayPassword = []
+    arrayData = []
 
     for (let index = 0; index < dataStorage.length; index++) {
 
+      // console.table(dataStorage[index])
 
       arrayEmail[index] = dataStorage[index].email
       arrayPassword[index] = dataStorage[index].password
-      
-    }
+
+      arrayData[index] = [arrayEmail[index], arrayPassword[index]]
     
-    /* tranformando em um array de valores para liberar 
-    metodos como o includes */
-    const emailAll = Object.values(arrayEmail)
-    const passwordAll = Object.values(arrayPassword)
 
-    /* verificando se existe email e senha e passando 
-    o resultado para uma variável */
-    const email = emailAll.includes(loginForm.email.value)
-    const password = passwordAll.includes(loginForm.password.value)
+      const arrayIndex = arrayData[index]
 
-    if (email == true & password == true){
+      console.table(arrayIndex)
 
-      directPage.userPage()
+      const email = arrayIndex[0].includes(loginForm.email.value)
+      const password = arrayIndex[1].includes(loginForm.password.value)
+
+      if (email == true & password == true){
+
+        directPage.userPage()
       
-    }else if(email == true & password == false){
-      throw new Error('A senha esta incorreta!')
-    }else {
-      throw new Error('Usuário não cadastrado!')
+      }else if(email == true & password == false){
+        throw new Error('A senha esta incorreta!')
+      }
+      // else {
+      //   throw new Error('Usuário não cadastrado!')
+      // }
+
     }
-   
   },
 
   ValidateFillLogin() {
@@ -250,3 +252,4 @@ app.init()
 
 //NÃO PERMITIR NAVEGAR PELA URL
 //PASSAR O NOME DO USUÁRIO AO FAZER LOGIM
+//NÃO PERMITIR USAR SENHA DE OUTRO USUÁRIO
