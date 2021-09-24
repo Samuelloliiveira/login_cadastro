@@ -33,24 +33,35 @@ const loginForm = {
  
     const dataStorage = Storage.get()
 
-    for(users of dataStorage) {
+    arrayEmail = []
+    arrayPassword = []
 
-      if (
-        loginForm.email.value === users.email &
-        loginForm.password.value === users.password
-      ){
+    for (let index = 0; index < dataStorage.length; index++) {
 
-        directPage.userPage(users.name)
+
+      arrayEmail[index] = dataStorage[index].email
+      arrayPassword[index] = dataStorage[index].password
       
-      }else if(
-        loginForm.email.value === users.email &
-        loginForm.password.value != users.password
-      ){
-        throw new Error('A senha esta incorreta!')
-      }else {
-        throw new Error('Usuário não cadastrado!')
-      }
+    }
+    
+    /* tranformando em um array de valores para liberar 
+    metodos como o includes */
+    const emailAll = Object.values(arrayEmail)
+    const passwordAll = Object.values(arrayPassword)
 
+    /* verificando se existe email e senha e passando 
+    o resultado para uma variável */
+    const email = emailAll.includes(loginForm.email.value)
+    const password = passwordAll.includes(loginForm.password.value)
+
+    if (email == true & password == true){
+
+      directPage.userPage()
+      
+    }else if(email == true & password == false){
+      throw new Error('A senha esta incorreta!')
+    }else {
+      throw new Error('Usuário não cadastrado!')
     }
    
   },
@@ -235,3 +246,7 @@ const app = {
 
 //o local storage vai começar vazio
 app.init()
+
+
+//NÃO PERMITIR NAVEGAR PELA URL
+//PASSAR O NOME DO USUÁRIO AO FAZER LOGIM
