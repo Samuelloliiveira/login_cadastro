@@ -1,3 +1,5 @@
+//recebe o nome do usuário pela URL
+
 const innerHTMLName = {
 
   nameUserPage() {

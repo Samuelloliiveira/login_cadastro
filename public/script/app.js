@@ -45,31 +45,37 @@ const loginForm = {
       arrayName[index] = dataStorage[index].name
 
       arrayData[index] = [arrayName[index], arrayEmail[index], arrayPassword[index]]
-    
-      const arrayIndex = arrayData[index]
+  
+      // const arrayIndex = arrayData[index]
 
-      console.table(arrayIndex)
+      if (
+        arrayData[index][1] == loginForm.email.value &
+        arrayData[index][2] == loginForm.password.value
+      ) {
 
-      const email = arrayIndex[1].includes(loginForm.email.value)
-      const password = arrayIndex[2].includes(loginForm.password.value)
-
-      if (email == true & password == true){
-
-        //passando o nome do usuário que realizou login
-        directPage.userPage(arrayIndex[0])
-      
-      }else if(email == true & password == false){
+        directPage.userPage(arrayData[index][0])
+        break
+        
+      }else if(
+        arrayData[index][1] == loginForm.email.value &
+        arrayData[index][2] != loginForm.password.value
+      ){
 
         throw new Error('A senha esta incorreta!')
 
       }
-//       if (email == false & password == false) {
-// 
-        // throw new Error('Usuário não cadastrado!')
-//         
-//       }
-
+      
     }
+
+    for (let index = 0; index < arrayData.length; index++) {
+      
+      if(arrayData[index][1] != loginForm.email.value){
+
+        throw new Error('Usuário não cadastrado!')
+
+      }
+    }
+
   },
 
   ValidateFillLogin() {
@@ -252,7 +258,3 @@ const app = {
 
 //o local storage vai começar vazio
 app.init()
-
-
-
-//NÃO PERMITIR NAVEGAR PELA URL
